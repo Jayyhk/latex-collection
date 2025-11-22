@@ -1,0 +1,696 @@
+\chapter{Solving First-order Differential Equation}
+
+\begin{theorem}
+    If function $f(x)$ and function $g(x)$ are continuous, then the DE is solvable 
+    by performing integration on both sides, said
+    \[
+        \int f(x) dx = \int g(y) \> dy + C
+    \]
+\end{theorem}
+
+\begin{example}
+    Solve $e^{x+y}\> dy - 1\> dx = 0$.
+\end{example}
+\begin{solution}
+    The DE is separable and can be formulate as 
+    \begin{align*}
+        e^{x+y}\> dy = 1\> dx \quad &\Rightarrow e^x * e^y \> dy = 1\> dx\\
+        &\Rightarrow e^y \> dy = e^{-x}\> dx
+    \end{align*}
+    
+    Integrating both sides we have
+    \begin{align*}
+        \int e^y \> dy = \int e^{-x}\> dx \quad &\Rightarrow e^y = -e^{-x} + C & 
+        e^y > 0 \text{ so that RHS }> 0 \\
+        &\Rightarrow y = \ln |-e^{-x} + C| &\text{general solution in implicit form}
+    \end{align*}
+\end{solution}
+
+\begin{example}
+    Find all solutions to $y' = -2y^2x$. Be sure to describe any singular solutions if there is one.
+\end{example}
+\begin{solution}
+    Is this DE separable? Yes, since it can be written as 
+    \[
+        - \frac{dy}{y^2} = 2x\> dx
+    \]
+    Integrating both sides of the equation, we have 
+    \begin{align*}
+        -\frac{1}{2y} = -\frac{1}{2}x^2 + c_1 &\Rightarrow \frac{1}{y} = x^2 - 2c_1\\
+        &\Rightarrow y = \frac{1}{x^2 - 2c_1}
+    \end{align*}
+
+    By inspection, $y = 0$ is another solution (obvious solution).
+
+    Therefore, the solutions are $y = 0$ and $y = (x^2 - 2c)^{-1} \quad \forall x \in \mathbb{R}$.
+\end{solution}
+
+\section{Exact Equation}
+
+The equation 
+
+\begin{equation}
+    M(x, y)\> dx + N(x,y)\> dy = 0
+\end{equation}
+
+is exact if $\exists F(x,y)$ such that $M\> dx + N\> dy = dF$. In this case, the solution to the DE 
+is given by $dF = 0$ or $F(x,y) = C$, $C$ is a constant.
+
+\begin{definition}[Total differential]
+    Let $F(x,y)$ be a function that has continuous first derivative in a 
+    domain $D$.
+
+    \begin{equation}
+        dF = \frac{\partial F}{\partial x}dx + \frac{\partial F}{\partial y}dy 
+        \quad \forall (x,y) \in D
+    \end{equation}
+\end{definition}
+
+\begin{theorem}[Test for Exactness]
+    Suppose $M,N, \frac{\partial M}{\partial y}$, and $\frac{\partial N}{\partial x}$ are continuous in the open 
+    rectanger $R: a< x<b, \> c < y < d$. Then 
+
+    \begin{equation}
+        M(x,y)\> dx + N(x,y)\> dy = 0 \text{ if and only if } \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    ($\Rightarrow$) If $M(x,y)\> dx + N(x,y)\> dy = 0$ is exact, then we can find a potential 
+    function $F$ such that $F_x = M$ and $F_y = N$. As the first-order partial derivatives of $M$ and 
+    $N$ are continuous in $R$, according to the commutative law of partial derivative operator,
+
+    \begin{equation}
+        \frac{\partial M}{\partial y} = F_{xy} = F_{yx} = \frac{\partial N}{\partial x}
+    \end{equation}
+
+    at each point of $R$.
+
+    ($\Leftarrow$) On the other hand, consider 
+    
+    \begin{equation}
+        \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}
+    \end{equation}
+
+    to prove $M(x,y)\> dx + N(x,y)\> dy = 0$ is exact, we must show that we can construct a function $F$
+    such that $F_x = M$ and $F_y = N$.
+
+    Let $\phi$ to be a function such that $\frac{\partial \phi}{\partial x} = M$. Then 
+    \begin{equation}
+        \frac{\partial^2 \phi}{\partial y \partial x} = \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}
+    \end{equation}
+    so that 
+    \begin{equation}
+        \frac{\partial N}{\partial x} = \frac{\partial^2 \phi}{\phi x \phi y}
+    \end{equation}
+
+    Integrating both sides with respect to $x$, we get 
+    \begin{equation}
+        N = \frac{\partial \phi}{\partial y} + B'(y)
+    \end{equation}
+\end{proof}
+
+\begin{example}
+    Solve $3x(xy - 2)\> dx + (x^3 + 2y)\> dy = 0$.
+\end{example}
+\begin{solution}
+    The DE is in the form of $M\> dx + N\> dy = 0$, with the test of exactness
+    \[
+        \begin{cases}
+            M = 3x (xy - 2) &\Rightarrow M_y = 3x^2 - 0 = 3x^2 \\[0.75em]
+            N = x^3 + 2y &\Rightarrow N_x = 3x^2 
+        \end{cases}
+    \]
+
+    To find the general solution of Eq(1): $F(x, y) = C$.
+
+    Find the function $F$ by solving the system 
+    \[
+        \begin{cases}
+            \displaystyle \frac{\partial F}{\partial x} = M = 3x (xy - 2) = 3x^2y - 6x \\[1em]
+            \displaystyle \frac{\partial F}{\partial y} = N = x^3 + 2y
+        \end{cases}
+    \]
+    
+    Now integrate (a) with respect to $x$, regarding $y$ as a constant.
+
+    \[
+        (a) \Rightarrow F = \int_{y} (3x^2y - 6x)\> dx = x^3y - 3x^2 + g(y) 
+    \]
+    where $g$ is a function of $y$ alone. Again, we partial derivative on $y$ to obtain $g'(y)$.
+
+    \[
+        \frac{\partial F}{\partial y} = x^3 - 0 + g'(y) = x^3 + g'(y)
+    \]
+
+    comparing to Eq(b), we have $g'(y) = 2y$. Which means $g(y) = y^2$. (ignored constant). 
+    In result, $F = x^3y - 3x^2 + y^2$ is the general solution of the DE.
+    
+
+\end{solution}
+
+\begin{example}
+    Solve the initial-value problem
+
+    \[
+        (2x\cos y + 3x^2 y)\> dx + (x^3 - x^2 \sin y - y)\> dy = 0, \quad y(0) = 2
+    \]
+\end{example}
+\begin{solution}
+    First, we have to determine whether or not the equation is exact. Here 
+
+    \[
+        M = 2x\cos y + 3x^2y, \quad N = x^3 - x^2\sin y - y
+    \]
+    \[
+        M_y = -2x\sin y + 3x^2, \quad N_x = 3x^2 - 2x\sin y
+    \]
+
+    Since $M_y = N_x = 3x^2 - 2x\sin y \quad \forall (x, y) \in \mathbb{R}^2$, the DE is exact in every rectangular
+    domain $D$. Next, we must find $F$ such that
+
+    \[
+        \left\{
+        \begin{array}{cc}
+         F_x = M = 2x\cos y + 3x^2y & \quad \refstepcounter{equation}(a)\\
+         M_y = x^3 - x^2\sin y - y & \quad \refstepcounter{equation}(b)
+        \end{array}
+        \right.
+        \]
+    
+        From $(a) \Rightarrow F = \int (2x\cos y + 3x^2y)\> dx = x^2\cos y + x^3y + g(y)$.\quad (c)\\
+        where $g$ is a function of $y$.
+
+        Again, $(c) \Rightarrow F_y = -x^2\sin y + x^3 + g'(y)$ \quad (d)
+
+        Now comparing (b) and (d), 
+        \[
+            g'(y) = -y \xrightarrow[]{\text{Integrate with respect to } y} g(y) = -\frac{y^2}{2} + C \quad 
+            \text{where } C \text{ is an arbitrary constant}
+        \]
+
+        Thus, we have potential function 
+        \[
+            F = x^2\cos y + x^3y - \frac{1}{2}y^2 + C
+        \]
+
+        Hence a 1-parameter family of solutions is $F(x,y) = 0$ or 
+        $\displaystyle x^2\cos y + x^3y - \frac{1}{2}y^2 + C$.
+
+        Finally, we can now use the initial condition $y(0) = 2$ to find $C$: Subtituting 
+        $x = 0, y = 2$ into the above solution, we obtain
+
+        \[
+            F(0, 2) = 0 + 0 - 2 + C = 0 \Rightarrow C = 2
+        \]
+
+        Therefore, the solution to the IVP is $\displaystyle x^2\cos y + x^3y - \frac{1}{2}y^2 + 2$.
+\end{solution}
+
+\begin{example}
+    Determine the constant $a$ so that the equation 
+    \[
+        \frac{1}{t^2} + \frac{1}{y^2} + \biggl(\frac{at+1}{3}\biggr) \frac{dy}{dt} = 0
+    \]
+    is exact, and then solve the resulting equation.
+\end{example}
+
+\begin{theorem}
+    The general solution to an exact equation $M(x,y)\>dx + N(x,y)\>dy = 0$ is 
+    defined implicitly by 
+    \begin{equation}
+        F(x,y) = C
+    \end{equation}
+    where $F$ is a potential function of the DE and $C$ is an 
+    arbitrary constant.
+\end{theorem}
+\begin{remark}
+    We can find $F$ by solving the system of equations 
+    \begin{equation}
+        \begin{cases}
+            \displaystyle 
+            \frac{\partial F}{\partial x} = M\\[1em]
+            \displaystyle 
+            \frac{\partial F}{\partial y} = N
+        \end{cases}
+    \end{equation}
+\end{remark}
+
+\begin{proof}
+    If $M(x,y)\>dx + N(x,y)\>dy = 0$ is exact, then $\exists$ a potential
+    function $F$ such that $M(x,y)\>dx + N(x,y)\>dy = dF$.
+
+    This gives us $dF = 0$ so that $F(x,y) = C$, where $C$ is an arbitrary 
+    constant.
+\end{proof}
+
+\begin{example}
+    Solve the DE 
+    \[
+        3x(xy - 2)\> dx + (x^3 + 2y)\> dy = 0
+    \]
+\end{example}
+
+\section{Making an Equation Exact: Integrating Factors}
+
+Sometimes it is impossible to transform a nonexact DE that into an exact 
+equation by multiplying it by a function. The resulting DE can be resolved using the technique
+ of the previous section. However, it is impossible for a solution to be lost or gained as 
+a result of the multiplication.
+
+\begin{definition}
+    If $M(x,y)\>dx + N(x,y)\>dy = 0$ is not exact but 
+    $I(x,y)M(x,y)\>dx + N(x,y)I(x,y)\>dy = 0$ is exact, then $I(x,y)$ is called 
+    an integrating factor of the DE.
+\end{definition}
+\begin{remark}
+    We may be able to determine $I(x,y)$ from the equation 
+    \begin{equation}
+        \frac{\partial}{\partial y}(IM) = \frac{\partial}{\partial y}(IN)
+    \end{equation}
+\end{remark}
+
+\begin{example}
+    Verify that $I(x,y) = x^{-1}$ is an integrating factor of 
+    $(x+y)\> dx + x\ln x \> dy = 0$ on the interval $(0, \infty)$. Hence, find the 
+    solution for this DE.
+\end{example}
+\begin{solution}
+    \[
+        (x+y)\> dx + x\ln x \> dy = 0 \quad \quad (1)
+    \]
+    First, show that Eq(1) is not exact. Suppose $M = x+y$, and $N = x\ln x$.
+    Then 
+    \[
+        M_y = 1, \quad N_x = x\biggl(\frac{1}{x}\biggr) + \ln x = 1 + \ln x
+    \]
+
+    Because $M_y \neq N_x$, so Eq(1) is not exact.
+
+    Next, multiplying Eq(1) by $\displaystyle I(x,y) = \frac{1}{x}$, we obtain 
+    \[
+        \frac{(x+y)}{x}\>dx + \ln x \> dy = 0 \quad \quad (2)
+    \]
+
+    Now we show that Eq(2) is exact. Let $\displaystyle \tilde{M} = 1 + \frac{1}{y}$, 
+    and $\tilde{N} = \ln x$, then 
+
+    \[
+        \frac{\partial \tilde{M}}{\partial y} = \frac{\partial \tilde{N}}{\partial x} = \frac{1}{x}
+    \]
+
+    The general solution will be $F(x,y) = C$, we can find $F$ by solving 
+    the system of equations 
+
+    \[
+        \left\{
+        \begin{array}{cc}
+         \displaystyle \frac{\partial F}{\partial x} = 1+\frac{y}{x} & \quad \refstepcounter{equation}(3)\\[1em]
+         \displaystyle \frac{\partial F}{\partial y} = \ln x & \quad \refstepcounter{equation}(4)
+        \end{array}
+        \right.
+    \]
+
+    Integrating Eq(3) with respect to $x$ we have 
+    \[
+        \int (3) dx \quad \Rightarrow F = \int \biggl(1 + \frac{y}{x}\biggr)\> dx 
+        = x + y\ln x + g(y) \quad \quad (5)
+    \]
+    where $g(y)$ is a function of $y$ alone.
+
+    Differentiate Eq(5) with respect to $y$, 
+    \[
+        \frac{\partial F}{\partial y} = \ln |x| + g'(y) \quad \quad (6)
+    \]
+
+    Now comparing Eq(4) and Eq(6), we obtain $g'(y) = g(y) = 0$.
+    
+    Thus, the general solution is $F = x + y\ln |x| + 0$.
+
+\end{solution}
+
+\begin{theorem}[Existence and Uniqueness Theorem for a 1st-order DE]
+    If the functions $p$ and $q$ are continuous on an open interval $I: a < x < b$ containing the 
+    point $x_0$, then the IVP 
+
+    \begin{equation}
+        \frac{dy}{dx} + p(x) y = q(x), \quad y(x_0) = y_0
+    \end{equation}
+
+    has a unique solution in the largest open interval containing $x_0$, in which both $p$ and $q$ 
+    are continuous.
+
+\end{theorem}
+\begin{proof}
+    The DE can be written as $y' = f(x,y)$, where $f(x,y) = q(x) - p(x)y$. 
+
+    Moreover, since $p$ and $q$ are continuous on $I$, the solution 
+    \begin{equation}
+        y(x) = e^{-\int^x_{x_0} p(t)\> dt} \biggl[\int_{x_0}^{x} q(t) e^{-\int^x_{x_0} p(t)\> dt} \> dt + y_0  \biggr]
+    \end{equation}
+
+    is well defined $\forall x \in I$.
+\end{proof}
+
+\begin{example}
+    Find the largest interval $I$ on which the initial value problem
+
+    \[
+        xy' + 2y = 4x^2, \quad y(-1) = 2
+    \]
+
+    has a unique problem.
+\end{example}
+
+\begin{example}[Radioactive Decay]
+    A certain radioactive isotope is known to decay at a rate of proportional to the amount present.
+    Initially, 100 grams of the isotope are present, but after 75 years its mass decays to 75 grams.
+
+    \begin{enumerate}
+        \item Setup and solve an initial-value problem for $N(t)$, the mass of the isotope at time $t$.
+        \item What is the half-life of the substance?
+    \end{enumerate}
+
+    Note: Half-life of a radioactive substance is the time required for half of it to decay.
+\end{example}
+\begin{solution}
+    Let $N(t)$ be the amount of material at time $t$,
+
+    Given $\displaystyle \frac{dN}{dt} \propto N$. So $\displaystyle \frac{dN}{dt} = kN$ 
+    where $k$ is the constant of proportionality. 
+    
+    Given the initial amount $N(0) = 100$, and $N(50) = 75$.
+
+    \begin{enumerate}
+        \item The IVP is 
+            \[
+                \frac{dN}{dt} = kN, \quad N(0) = 100, \quad N(50) = 75
+            \]
+        
+            \textbf{Identify the DE: Separable, 1st-order, linear DE}
+
+            To solve the DE, we can use either integrating factor or by writting 
+            the DE in the form of $\frac{dN}{dt} + p(t)N = q(t)$.
+
+            \[IF = e^{\int p(t) dt} = e^{\int -k \> dt} = e^{-kt}\]
+
+            and we obtained 
+
+            \[
+                N(t) = 100 e^{\frac{1}{50} \ln(3/4)t} \quad \forall t \in [0, +\infty)
+            \]
+        
+        \item Let the half-life of isotope be $T$, and 
+            \[
+                N(T) = \frac{1}{2} N(0) = 50
+            \]
+
+            using the formula that we found on (a), 
+
+            \begin{align*}
+                N(T) = 100 e^{\frac{1}{50} \ln(3/4)T} = 50 &\Rightarrow 
+                e^{\frac{1}{50} \ln(3/4)T} = \frac{1}{2}\\
+                &\Rightarrow T = \frac{\ln (1/2)}{\displaystyle \frac{1}{50} \ln (3/4)} = 120.471042 \text{ years}
+            \end{align*}
+
+            which means this radioactive substance required roughly 120 years to decay to half of its mass.
+    \end{enumerate}
+\end{solution}
+
+\section{Substitution Method}
+
+In this section, we will use an appropriate substitution to transform a given ODE into one that could be solved by 
+one of the standard methods.
+
+\begin{theorem}[Substitution method]
+    The substitution 
+    \begin{equation}
+        u = ax + by + c, b\neq 0 \label{eqn:r-1}
+    \end{equation}
+    
+    transforms the equation 
+    \begin{equation}
+        \frac{dy}{dx} = f(ax + by + c) \label{eqn:r-2}
+    \end{equation}
+
+    into a separable equation.
+\end{theorem}
+
+\begin{proof}
+    Consider a differential equation of the form \eqref{eqn:r-1}
+
+    Let 
+    \begin{equation}
+        u = ax + by + c
+    \end{equation}
+
+    Taking the drivative with respect to $x$ we obtained 
+    \begin{equation}
+        \frac{du}{dx} = a + b \frac{dy}{dx} \quad \Rightarrow \frac{dy}{dx} = \frac{1}{b} \biggl(a - \frac{du}{dx}\biggr)
+    \end{equation}
+
+    Substituting this result back to Eq\eqref{eqn:r-1} 
+    \begin{equation}
+        \frac{1}{b} \biggl(a - \frac{du}{dx}\biggr) = f(u)
+    \end{equation}
+
+    which is clearly a separable equation:
+    \begin{equation}
+        \frac{1}{a + bf(u)}\> du = dx
+    \end{equation}
+\end{proof}
+
+\begin{example}
+    Use an appropriate substitution to solve 
+    \[
+        \frac{dy}{dx} = \sin^2(3x-3y+1)
+    \]
+\end{example}
+\begin{solution}
+    Substituting $u = 3x - 3y +1$, $\frac{du}{dx} = 3 - 3\frac{dy}{dx}$ 
+    or $\frac{dy}{dx} = 1 - \frac{1}{3} \frac{du}{dx}$ into the given DE. We obtain 
+
+    \begin{align*}
+        1 - \frac{1}{3} \frac{du}{dx} = \sin^2 u &\Rightarrow \frac{du}{dx} = 3 \cos^2 u\\
+        &\Rightarrow \sec^2 u \>du = 3\>dx\\
+        &\Rightarrow \tan u = 3x + C & (C \text{ is a constant})\\
+        &\Rightarrow u = \arctan(3x + C)\\
+        &\Rightarrow 3x - 3y +1 = \arctan(3x + C)
+    \end{align*}
+\end{solution}
+
+Thus, $3x - 3y +1 = \arctan(3x + C)$ is the solution of the original DE.
+
+\begin{example}
+    Use an appropriate substitution to solve 
+    \[
+        \frac{dy}{dx} = 2 + \sqrt{y - 2x + 3}
+    \]
+\end{example}
+\begin{solution}
+    Substituting $u = y - 2x + 3$, $\frac{du}{dx} = \frac{dy}{dx} - 2$ 
+    or $\frac{dy}{dx} = 2 + \frac{du}{dx}$ into the given DE. We obtain 
+
+    \begin{align*}
+        2 + \frac{du}{dx} = 2 + \sqrt{u} &\Rightarrow \frac{du}{dx} = \sqrt{u}\\
+        &\Rightarrow \frac{1}{\sqrt{u}} \>du = dx\\
+        &\Rightarrow \int \frac{1}{\sqrt{u}} \>du = \int \> dx\\
+        &\Rightarrow 2 \sqrt{u} = x + C & (C \text{ is a constant})\\
+        &\Rightarrow 4u = (x + C)^2\\
+        &\Rightarrow 4(y - 2x + 3) = (x + C)^2
+    \end{align*}
+
+    and thus the solution is 
+    \[
+        y = \frac{(x + C)^2}{4} + 2x - 3
+    \]
+\end{solution}
+
+\section{Homogeneous Equation}
+
+A first-order DE $y' = f(x,y)$ is homogeneous if $f(x,y)$ can be expressed as a function 
+of the ratio $y/x$ alone. In other words, the DE 
+
+\begin{equation}
+    y' = f(x,y)
+\end{equation}
+
+is homogeneous if it can be written in the form 
+
+\begin{equation}
+    \frac{dy}{dx} = F \biggl( \frac{y}{x}\biggr)
+\end{equation}
+
+\begin{theorem}[Substitution method for homogeneous equation]
+    The substitution $v = y/x$ (or $v = x/y$) will reduce the homogeneous DE 
+    \begin{equation}
+        \frac{dy}{dx} = F\biggl(\frac{y}{x}\biggr)
+    \end{equation}
+    to a separable DE.
+\end{theorem}
+
+\begin{example}
+    Solve $(x - y)y' = x + y$
+\end{example}
+\begin{solution}
+    Certainly, $(x - y)y' = x+y \Rightarrow \frac{dy}{dx} = \frac{x+y}{x-y}$ is homogeneous.
+
+    By using the substitution
+    \[
+        \begin{cases}
+            v = \frac{y}{x} \Rightarrow y = vx\\
+            \frac{dy}{dx} = v + x \frac{dv}{dx}
+        \end{cases}
+    \]
+
+    substitute into Eq(1), we have 
+    \begin{align*}
+        (1) &\Rightarrow \frac{dy}{dx} = \frac{1 + \frac{y}{x}}{1 - \frac{y}{x}}\\
+        &\Rightarrow v + x\frac{dv}{dx} = \frac{1+v}{1-v}\\
+        &\Rightarrow x \frac{dv}{dx} = \frac{1+v}{1-v} - v\\
+        &\Rightarrow \frac{1-v}{1+v^2} \> dv = \frac{1}{x} \> dx
+    \end{align*}
+    integrating both sides
+    \begin{align*}
+        \int \frac{1-v}{1+v^2} \> dv = \int \frac{1}{x} \> dx \quad &\Rightarrow 
+        \int \biggl[\frac{1}{1+v^2} + \frac{-v}{1+v^2}\biggr] \> dv = \ln |x| + C\\
+        &\Rightarrow \arctan(v) - \frac{1}{2} \ln |1+v^2| = \ln|x| + C
+    \end{align*}
+    again, we substitute $v = \frac{y}{x}$ back to the result
+
+    \begin{align*}
+        & \arctan \biggl(\frac{y}{x}\biggr) - \frac{1}{2} \ln \bigg \vert 1+\frac{y^2}{x^2} \bigg \vert = \ln|x| + C\\
+        &\Rightarrow 2 \arctan \biggl(\frac{y}{x}\biggr) = \ln \bigg \vert 1+\frac{y^2}{x^2} \bigg \vert + 2 \ln |x| + 2C\\
+        &\Rightarrow 2 \arctan \biggl(\frac{y}{x}\biggr) = \ln (x^2 + y^2) + 2C
+    \end{align*}
+
+    is the general solution of the original DE.
+\end{solution}
+
+\begin{example}[Bernoulli differential equation]
+    A first-order differential equation of the form 
+
+    \[
+        y' + P(x)y = Q(x)y^n
+    \]
+
+    where $n$ is any real number, is called a \textbf{Bernoulli differential equation}.
+
+    For $n = 0, 1$, the equation is linear. Otherwise it is nonlinear.
+
+\end{example}
+\begin{solution}
+    \begin{enumerate}
+        \item For $n \geq 2$, consider the equation 
+            \begin{equation}
+                y' + P(x)y = Q(x)y^n \label{eqn:r-3}
+            \end{equation}
+
+            Multiply \eqref{eqn:r-3} by $(1-n)y^{-n}$, we have 
+
+            \[
+                (1-n)y^{-n}y' + (1-n)P(x)y^{1-n} = (1-n)Q(x)
+            \]
+
+            using the following substitution
+            \[
+                \begin{cases}
+                    w = y^{1-n}\\[0.5em]
+                    \displaystyle \frac{dw}{dx} = (1-n)y^{(1-n)-1}\, \frac{dy}{dx} = (1-n)y^{-n}\, \frac{dy}{dx}
+                \end{cases}
+            \]
+
+            The original DE is now a linear first-order separable DE.
+            \begin{align*}
+                \frac{dw}{dx} + (1-n)w P(x) &= (1-n)Q(x)\\
+                \frac{dw}{dx} &= (1-n)[Q(x) - wP(x)] 
+            \end{align*}
+
+        \item A Bernoulli equation with $n=2$ is 
+            \begin{equation}
+                xy' + y = -xy^2
+            \end{equation}
+
+            which can be rewrite into 
+            \begin{equation}
+                y' + \frac{1}{x} y = - y^2 \label{eq:sln1} \tag{{\color{red} $\diamond$}}
+            \end{equation}
+
+            Now use the substitution $w = y^{1-n} = y^{1-2} = y^{-1}$. We have 
+
+            \begin{equation}
+                \frac{dw}{dx} = -y^{-2}\, \frac{dy}{dx}
+            \end{equation}
+
+            Now multiply \eqref{eq:sln1} by $-y^{-2}$, 
+
+            \begin{align*}
+                -y^{-2}\, \frac{dy}{dx} + \frac{1}{x}y^{-1} &= 1\\
+                \frac{dw}{dx} - \frac{1}{x} w = 1 \label{eq:sln2} \tag{{\color{orange} $\blacksquare$}}
+            \end{align*}
+
+            We can solve this using the integrating factor $I$, applying the formula and compute 
+            the integrating factor
+
+            \begin{equation}
+                I = e^{\int 1/x \> dx} = e^{-\ln |x|} = \frac{1}{x}
+            \end{equation}
+
+            Now multiplying \eqref{eq:sln2} with integrating factor $I$
+
+            \begin{align*}
+                \frac{1}{x} \biggl(\frac{dw}{dx} - \frac{w}{x} \biggr) &= \frac{1}{x}\\
+                \frac{d}{dx} \biggl( \frac{w}{x}\biggr) &= \frac{1}{x}\\
+                \frac{w}{x} &= \int \frac{1}{x} \> dx = \ln |x| + C & C \text{ is a constant}\\
+            \end{align*}
+
+            This arrive that the solution is $w = x \ln |x| + Cx$, where $C$ is a constant. Recall 
+            that $w = 1/y$, hence the last step is solve for $y$.
+
+            \begin{align*}
+                \frac{1}{y} &= x \ln |x| + Cx\\
+                y &= \frac{1}{x \ln |x| + Cx},\quad  x \neq 0
+            \end{align*}
+    \end{enumerate}
+\end{solution}
+
+\section*{Summary: Solving 1st order DE}
+
+\begin{enumerate}
+    \item Separable equation: $f(x) \>dx = g(y) \>dy$. (Method of solving: integrating both sides)
+    \item Exact DE: Use \textbf{Exactness Test}, whether 
+        $\displaystyle \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}$
+\end{enumerate}
+
+\section{Tutorials}
+
+\begin{mdframed}
+    \vspace{-0.25cm}
+    \hspace{-0.25cm}
+    \begin{Exercise}
+        Solve $\displaystyle \frac{dx}{dt} = 4(x^2 + 1), \quad x\biggl(\displaystyle \frac{\pi}{4}\biggr) = 1$.
+    \end{Exercise}
+
+    \begin{Exercise}
+        Solve $\displaystyle \frac{dy}{dx} = e^{x^2}, \quad y(3) = 5$. The functions defined by integrals are 
+        listed as below:
+
+        \begin{center}
+            \begin{tabular}{c|c|}
+                Error Function & $\displaystyle \text{erf}(x) = \frac{2}{\sqrt{\pi}} \int_{0}^{x} e^{-t^2}\> dt$\\[1em]
+                Complementary error function & $\displaystyle \text{erfc}(x) = \frac{2}{\sqrt{\pi}} \int_{x}^{\infty} e^{-t^2}\> dt$\\[1em]
+                \hline
+            \end{tabular}
+        \end{center}
+    \end{Exercise}
+
+    \begin{Exercise}
+        Solve the initial-value problem
+        \[
+            (e^{2}y - y) \cos x \> \frac{dy}{dx} = e^y \sin(2x), \quad y(0) = 0
+        \]
+    \end{Exercise}
+
+    \begin{Exercise}
+        Solve $(x^2 + y^2) \> dx + (x^2 - xy) \> dy = 0$.
+    \end{Exercise}
+\end{mdframed}

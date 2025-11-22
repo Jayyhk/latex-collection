@@ -1,0 +1,15 @@
+Sources:
+https://github.com/sohamch08/Algorithms-CSS.201.1-TIFR-2024
+https://github.com/micahkepe/comp458-notes
+https://github.com/ccanonne/compx270
+https://github.com/BenjaminGor/Latex_Notes_Tutorial
+https://github.com/blxkex/Latex-Notes-Templates
+https://blkwll.gumroad.com/l/latextemplate
+https://github.com/pehcy/ode-notes-latex
+https://mirrors.mit.edu/CTAN/macros/plain/base/manmac.tex
+http://ftp.cs.stanford.edu/pub/tex/local/lib/taocpmac.tex
+https://github.com/dog-blood/utterly-unorganized-latex-code
+
+Other Sources:
+https://github.com/Tufte-LaTeX/tufte-latex
+https://tex.stackexchange.com/questions/1319/showcase-of-beautiful-typography-done-in-tex-friends

@@ -1,0 +1,171 @@
+\documentclass{report}
+
+% ==============================
+
+% Configuration files for custom packages and macros
+\input{config/preamble}
+\input{config/macros}
+\input{config/letterfonts}
+
+% ==============================
+
+\title{\Huge{COMP 458/558}\\Quantum Computing Algorithms}
+\author{\huge{Micah Kepe}}
+\date{}
+
+% ==============================
+
+\makeindex[title=Appendix, intoc]
+
+% ==============================
+
+\begin{document}
+
+\maketitle
+\newpage
+
+% Add a blank page after the title
+\null\thispagestyle{empty}
+\newpage
+
+% ==============================
+% PREFACE
+% ==============================
+\chapter*{Preface}
+\input{front-matter/preface.tex}
+
+
+% ==============================
+% TABLE OF CONTENTS
+% ==============================
+\renewcommand*\contentsname{Table of Contents}
+\pdfbookmark[section]{\contentsname}{toc}
+\tableofcontents
+\pagebreak
+
+\clearpage
+\pagenumbering{arabic}  % Switch back to Arabic numerals
+\setcounter{page}{1}    % Reset page numbering
+
+
+% ==============================
+% START OF CONTENT
+% ==============================
+
+% ==============================
+% PHASE I: INTRODUCTION
+% ==============================
+\chapter{Phase I: Introduction and Background}
+
+% ● Overview of quantum computing concepts and
+% applications
+% ● Historical background and current state of quantum
+% computing
+% ● Review of linear algebra concepts, notation, and
+% vector spaces
+\input{lectures/phase-i/lecture1.tex}
+\input{lectures/phase-i/lecture2.tex}
+
+%%%%
+
+% ● Quantum state representation and quantum bits (qubits)
+% ● Probability theory and its application to quantum systems
+% ● Measurement and quantum state collapse
+% ● Statistical analysis of quantum measurements
+\input{lectures/phase-i/lecture3.tex}
+
+%%%%
+
+% ● Quantum gates and transformations
+% ● Unitary matrices and their properties
+% ● Quantum circuits, systems, and properties
+% ● Multi-qubit systems
+\input{lectures/phase-i/lecture4.tex}
+\input{lectures/phase-i/lecture5.tex}
+\input{lectures/phase-i/lecture6.tex}
+
+%%%%
+
+% ● Reversibility property and no-cloning theorem
+\input{lectures/phase-i/lecture7.tex}
+
+
+% ==============================
+% PHASE II: FUNDAMENTALS
+% ==============================
+\chapter{Phase II: Fundamentals of Quantum Algorithms}
+
+% ● Entanglement
+% ● Bell-state and GHZ state generation circuits
+% ● Basic quantum algorithms
+% ● Quantum computing using Cirq
+\input{lectures/phase-ii/lecture8.tex}
+
+% ● Grover's search algorithm
+\input{lectures/phase-ii/lecture9.tex}
+\input{lectures/phase-ii/lecture10.tex}
+\input{lectures/phase-ii/lecture11.tex}
+
+% ==============================
+% PHASE III: ADVANCED
+% ==============================
+\chapter{Phase III: Advanced Quantum Algorithms}
+
+% ● Introduction to variational quantum algorithms
+% ● Training and optimization of variational algorithms
+\input{lectures/phase-iii/lecture12.tex}
+
+% ● Introduction to quantum optimization problems
+% ● Quantum approximate optimization algorithm (QAOA)
+\input{lectures/phase-iii/lecture13.tex}
+\input{lectures/phase-iii/lecture14.tex}
+\input{lectures/phase-iii/lecture15.tex}
+
+% ==============================
+% PHASE IV: SPECIAL TOPICS
+% ==============================
+\chapter{Phase IV: Special Topics in Quantum Computing}
+
+% ● Overview of quantum compilers and their role in quantum computing
+% ● Introduction to quantum compiler optimizations
+\input{lectures/phase-iv/lecture16.tex}
+
+% ● Architectural challenges and constraints in building quantum system
+\input{lectures/phase-iv/lecture17.tex}
+\input{lectures/phase-iv/lecture18.tex}
+
+% ● More on Logical to Physical Mapping
+\input{lectures/phase-iv/lecture19.tex}
+
+% ● Quantum error correction
+\input{lectures/phase-iv/lecture20.tex}
+\input{lectures/phase-iv/lecture21.tex}
+
+% ==============================
+% PHASE V: CONCLUDING LECTURES
+% ==============================
+\chapter{Phase V: Concluding Lectures}
+
+% ● Quantum Annealers, Trapped Ion Quantum Computers
+\input{lectures/phase-v/lecture22.tex}
+
+% ● Neutral Atom Quantum Computers, Photonic Quantum Computers
+\input{lectures/phase-v/lecture23.tex}
+
+% ==============================
+% QUICK REFERENCE
+% ==============================
+\chapter{Quantum Computing Quick Reference}
+\input{supplementary/cheatsheet.tex}
+
+% ==============================
+% Appendix
+% ==============================
+
+\begin{appendices}\label{sec:Appendix}
+  \printindex
+\end{appendices}
+
+% ==============================
+
+\end{document}

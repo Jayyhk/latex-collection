@@ -1,0 +1,18 @@
+\documentclass[11pt,twoside]{report}
+\usepackage[a4paper, margin=22.4mm,bottom=1in,top=1in,footskip=31.5pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{styles}
+\usepackage{polydiv}
+\usepackage{import}
+
+\begin{document}
+\RestyleAlgo{ruled}
+    \import{src/}{existence.tex}
+    \import{src/}{solutions.tex}
+    \import{src/}{second_order.tex}
+    \import{src/}{power.tex}
+    \import{src/}{laplace.tex}
+    \import{src/}{system_of_ode.tex}
+\end{document}
+

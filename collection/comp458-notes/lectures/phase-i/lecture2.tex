@@ -1,0 +1,339 @@
+\section{Lecture 2: Review of Linear Algebra Concepts}\label{sec:lecture2}
+
+Linear algebra provides the foundation for manipulating quantum states, which
+are represented using vectors and matrices in a complex vector space.
+
+\dfn{Vectors: Row and Column Vectors}{A \textbf{vector} \index{vector} is an
+  ordered list of numbers, which can be represented as either a row or column
+  vector. The components of vectors in quantum computing belong to the field of
+complex numbers ($\mathbb{C}$).}
+
+\subsection*{Column Vectors} \index{vector!column| see{ ket }}
+
+A column vector is a vertical arrangement of numbers:
+\[
+  \mathbf{v} =
+  \begin{bmatrix}
+    v_1 \\
+    v_2 \\
+    \vdots \\
+    v_n
+  \end{bmatrix}, \quad v_i \in \mathbb{C}.
+\]
+
+\subsection*{Row Vectors}
+
+A row vector is the complex conjugate transpose \textbf{vector}
+\index{vector!adjoint} of a column vector:
+\[
+  \mathbf{v}^\dagger =
+  \begin{bmatrix}
+    \overline{v_1} & \overline{v_2} & \dots & \overline{v_n}
+  \end{bmatrix}.
+\]
+
+The adjoint of a column vector is a row vector, and vice versa. We represent
+the adjoint of a vector using the dagger symbol ($\dagger$).
+\index{vector!dagger@\textsl{dagger}| see{ adjoint }}
+
+\subsection*{Dirac Notation \index{vector!Dirac notation}}
+
+In quantum computing, vectors are represented using \textbf{Dirac notation}
+(bra-ket notation):
+
+\begin{itemize}
+  \item \textbf{Ket} \index{vector!Dirac notation!ket@\textsl{ket}} \(
+    |v\rangle \): Represents a column vector.
+
+  \item \textbf{Bra} \index{vector!Dirac notation!bra@\textsl{bra}} \(
+    \langle v | \): Represents the adjoint (conjugate transpose) of the ket.
+
+  \item Example: \( |v\rangle = \begin{bmatrix} 1 + i \\ 2 \end{bmatrix},
+    \quad \langle v | = \begin{bmatrix} 1 - i & 2 \end{bmatrix} \).
+\end{itemize}
+
+\dfn{Euler's Formula}{Euler's formula \index{Euler's formula} relates complex
+  exponentials to trigonometric functions:
+  \[
+    e^{i\omega} = \cos(\omega) + i\sin(\omega)
+  \]
+
+This is fundamental in representing quantum states and transformations.}
+
+\dfn{Inner Product}{The \textbf{inner product} \index{vector!inner product}
+  of two vectors $\mathbf{v}, \mathbf{w} \in \mathbb{C}^n$ is defined as:
+  \[
+    \langle \mathbf{v}, \mathbf{w} \rangle = \mathbf{v}^\dagger \mathbf{w} =
+    \sum_{i=1}^n \overline{v_i}w_i
+  \]
+
+  which measures the overlap between two quantum states.
+
+  \ex{Inner Product Example}{
+
+    Given two vectors:
+    \[
+      \mathbf{v} = \begin{bmatrix} 1 \\ i \end{bmatrix}, \quad
+      \mathbf{w} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}
+    \]
+
+    The inner product is:
+    \[
+      \langle \mathbf{v}, \mathbf{w} \rangle = \begin{bmatrix} 1 & -i
+      \end{bmatrix}
+      \begin{bmatrix} 2 \\ 1 \end{bmatrix} = 2 - i
+    \]
+  }
+
+  We also have the following property that the inner product of a vector
+  and itself is equivalent to the square of the Euclidean norm of a vector:
+  \index{vector!Euclidean norm}
+  \[
+    \langle \mathbf{v}, \mathbf{v} \rangle = \|\mathbf{v}\|^2
+  \]
+}
+
+\dfn{Outer Product}{The \textbf{outer product} \index{vector!outer product}
+  of two vectors $\mathbf{v} \in \mathbb{C}^m$ and $\mathbf{w} \in
+  \mathbb{C}^n$ produces an $m \times n$ matrix:
+  \[
+    \mathbf{v}\mathbf{w}^\dagger =
+    \begin{bmatrix} v_1 \\ v_2 \\ \vdots \\ v_m \end{bmatrix}
+    \begin{bmatrix} \overline{w_1} & \overline{w_2} & \dots & \overline{w_n}
+    \end{bmatrix}
+  \]
+
+This operation is useful for constructing quantum operators.}
+
+\dfn{Tensor Product}{The \textbf{tensor product} (or Kronecker product)
+  allows us to describe multi-qubit systems. Given two vectors:
+  \index{vector!tensor product}
+  \[
+    \mathbf{v} = \begin{bmatrix} v_1 \\ v_2 \end{bmatrix}, \quad
+    \mathbf{w} = \begin{bmatrix} w_1 \\ w_2 \end{bmatrix}
+  \]
+
+  Their tensor product is:
+  \[
+    \mathbf{v} \otimes \mathbf{w} =
+    \begin{bmatrix}
+      v_1 w_1 \\
+      v_1 w_2 \\
+      v_2 w_1 \\
+      v_2 w_2
+    \end{bmatrix}
+  \]
+
+  The tensor product expands the state space, allowing representation of
+entangled states.}
+
+\subsection*{Orthagonality} \index{vector!orthogonality}
+Two vectors $v, w \in \mathbb{C}^n$ are \textbf{orthogonal} if their
+inner product is zero:
+\[
+  \langle \mathbf{v}, \mathbf{w} \rangle = 0
+\]
+
+Orthogonal vectors are linearly independent and span a subspace of the vector
+space. As you might remember from linear algebra, a set of orthogonal vectors
+can be used to construct an orthonormal basis, and any vector can be expressed
+as a linear combination of the basis vectors.
+
+\vspace{0.3cm}
+
+This will be useful when we cover the quantum bases in \autoref{sec:lecture3}.
+
+\vspace{0.3cm}
+
+\dfn{Adjoint of a Matrix}{The \textbf{adjoint} (or Hermitian conjugate) of a
+  matrix $A$ is obtained by taking the transpose and complex conjugate of
+  each entry:
+  \[
+    A^\dagger = \overline{A^T}
+  \]
+  If $A$ is:
+  \[
+    A = \begin{bmatrix}
+      1 & i \\
+      2 & 3
+    \end{bmatrix}
+  \]
+  Then its adjoint is:
+  \[
+    A^\dagger =
+    \begin{bmatrix}
+      1 & 2 \\
+      - i & 3
+    \end{bmatrix}
+\]}
+
+\dfn{Unitary Matrix}{A square matrix $U$ is called \textbf{unitary}
+  \index{matrix!unitary} if its adjoint is equal to its
+  inverse:
+  \[
+    U^\dagger U = I
+  \]
+
+  where $I$ is the identity matrix. Unitary matrices preserve the norm of
+  quantum states and represent reversible quantum operations. Example:
+  \[
+    U = \frac{1}{\sqrt{2}}
+    \begin{bmatrix}
+      1 & 1 \\
+      1 & -1
+    \end{bmatrix}, \quad U^\dagger U = I
+\]}
+
+\dfn{Hermitian Matrix}{A square matrix $H$ is called \textbf{Hermitian}
+  \index{matrix!Hermitian} if it is equal to its adjoint:
+  \[
+    H = H^\dagger
+  \]
+
+  Hermitian matrices represent observable quantities in quantum mechanics and
+  have real eigenvalues. Example:
+  \[
+    H = \begin{bmatrix}
+      2 & i \\
+      - i & 2
+    \end{bmatrix}
+  \]
+
+  Since $H^\dagger = H$, it is Hermitian.
+
+  \nt{Hermitian matrices \textbf{can't} have complex numbers in their diagonal
+    General case illustration:
+    \[
+      M = \begin{bmatrix} a + ib & c + id \\ e + if & g  + ih \end{bmatrix}
+      \quad \Rightarrow \quad
+      M^\dagger = \begin{bmatrix} a - ib & e - if \\ c - id & g - ih
+      \end{bmatrix}
+      \quad \Rightarrow \quad M \neq M^\dagger
+    \]
+
+    \vspace{0.3cm}
+
+    $\therefore$ Hermitian matrices have real diagonal elements.
+
+    \vspace{0.3cm}
+
+    Additionally, the general matrix $M$ shown above is Hermitian iff. $c =
+    e, d = -f$
+  }
+}
+
+Hermitian matrices are not necessarily unitary, and unitary matrices are not
+necessarily Hermitian. A matrix can be both, but these properties are distinct:
+\[
+  H = H^\dagger \quad (\text{Hermitian}), \quad U U^\dagger = I \quad (\text{unitary})
+\]
+
+In quantum computing, gates that are both Hermitian and unitary (e.g., Pauli
+gates) satisfy $U = U^\dagger$ and $U^2 = I$, making them their own
+inverses---they cancel out when applied twice in succession. However, not all
+unitary gates are Hermitian (e.g., the phase gate, which is unitary but not
+Hermitian):
+\[
+  \text{Pauli } X = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}, \quad X = X^\dagger, \quad X^2 = I; \quad
+  \text{Phase } S = \begin{bmatrix} 1 & 0 \\ 0 & i \end{bmatrix}, \quad S S^\dagger = I, \quad S \neq S^\dagger
+\]
+
+\vspace{0.3cm}
+%%%%%%%%%%%%%%
+
+\dfn{Eigenvalues and Eigenvectors}{
+  For a square matrix $A \in \mathbb{C}^{n\times n}$, a vector
+  $\mathbf{v} \neq \mathbf{0}$ is an \textbf{eigenvector} if:
+  \index{vector!eigenvector}
+  \[
+    A\mathbf{v} = \lambda\mathbf{v}
+  \]
+
+  where $\lambda \in \mathbb{C}$ is the \textbf{eigenvalue}. Eigenvalues
+  provide insight into the structure of linear transformations.
+  \index{matrix!eigenvalue}
+
+  In Braket notation, the eigenvalue equation is: \index{matrix!eigenvalue equation}
+  \[
+    A|\mathbf{v}\rangle = \lambda|\mathbf{v}\rangle
+  \]
+}
+
+\ex{Example: Eigenvalues}{For the matrix
+  \[
+    A = \begin{bmatrix} 1 & i \\ -i & 1 \end{bmatrix}
+  \]
+
+  The characteristic equation is:
+  \[
+    \det(A - \lambda I) = (1 - \lambda)^2 + 1 = 0
+  \]
+
+Solving gives eigenvalues $\lambda = 1 \pm i$.}
+
+\dfn{Quantum Bits/ Qubits}{
+  A \textbf{qubit} \index{qubit} can be defined mathematically as follows:
+  \[
+    \ket{\psi} = \bmatrix \alpha_1 \\ \alpha_2 \endbmatrix \in \mathbb{C}^2
+  \]
+
+  where:
+  \[
+    \alpha_1, \alpha_2 \in \mathbb{C} \quad \text{and} \quad |\alpha_1|^2 +
+    |\alpha_2|^2 = 1
+  \]
+}
+
+The first property ensures that the qubit is normalized, while the second
+property ensures that the qubit is in a superposition of the basis states.
+
+\vspace{0.3cm}
+
+The first universal basis that we will look at is the computational basis,
+which consists of the states \(\zero\) and \(\one\):
+\index{universal bases!computational}
+\[
+  \text{Zero state} = \zero = \bmatrix 1 \\ 0 \endbmatrix
+  \quad \text{One state} = \one = \bmatrix 0 \\ 1 \endbmatrix
+\]
+
+A quantum state vector $\ket{\psi}$ can be expressed as a linear
+combination of the basis states:
+\[
+  \ket{\psi} = \alpha_1\zero + \alpha_2\one
+\]
+
+\nt{Properties of the computational basis:
+  \index{universal bases!computational!properties@\textit{properties}}
+
+  \begin{itemize}
+    \item \textbf{The computational basis states are orthogonal:}
+      \[
+        \langle 0 | 1 \rangle = \zero^\dagger \one = \bmatrix 1 & 0 \endbmatrix
+        \bmatrix 0 \\ 1 \endbmatrix = 0
+      \]
+
+    \item \textbf{The computational basis states are normalized:}
+      \[
+        \langle 0 | 0 \rangle = \zero^\dagger \zero = \bmatrix 1 & 0
+        \endbmatrix \bmatrix 1 \\ 0 \endbmatrix = 1
+      \]
+  \end{itemize}
+}
+
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\qs{}{Show that any unitary matrix preserves the inner product of two
+vectors.}
+
+\sol{Since a unitary matrix satisfies \( U^\dagger U = I \), we have:
+  \[
+    \langle U\mathbf{v}, U\mathbf{w} \rangle = \mathbf{v}^\dagger
+    (U^\dagger U) \mathbf{w} = \mathbf{v}^\dagger \mathbf{w}
+  \]
+Thus, inner products are preserved.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% End of Lecture 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

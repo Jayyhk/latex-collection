@@ -1,0 +1,200 @@
+\section{Lecture 6: Multi-Qubit Gates and Circuit Construction}
+\label{sec:lecture6}
+
+$n$-qubit gates are unitary transformations that operate on $n$ qubits. This
+section explores key multi-qubit gates, their properties, and how to
+construct quantum circuits using these gates.
+
+\index{quantum gates!multi-qubit gates}
+\subsection*{Controlled Gates}
+
+\index{quantum gates!multi-qubit gates!controlled gates}
+\dfn{Controlled X Gate}{(CNOT) is a two-qubit gate that flips the target qubit
+  if the control qubit is in state $\ket{1}$, and does nothing if the control
+  qubit is in state $\ket{0}$. The matrix representation of CNOT is given by:
+  \[
+    CNOT = CX = \begin{pmatrix}
+      1 & 0 & 0 & 0 \\
+      0 & 1 & 0 & 0 \\
+      0 & 0 & 0 & 1 \\
+      0 & 0 & 1 & 0
+    \end{pmatrix}
+  \]
+
+  Representing the gate in a circuit diagram:
+
+  \begin{align*}
+    \begin{quantikz}
+      \lstick{$\ket{c}$} & \ctrl{1} & \qw \\
+      \lstick{$\ket{t}$} & \gate{X} & \qw \\
+    \end{quantikz}
+  \end{align*}
+
+  The control qubit is denoted by $\ket{c}$ and the target qubit is denoted by
+$\ket{t}$.}
+
+\vspace{0.3cm}
+
+Applying the CNOT gate to a two-qubit state $\ket{\psi} = \alpha\ket{00} +
+\beta\ket{01} + \gamma\ket{10} + \delta\ket{11}$:
+
+\begin{equation*}
+  \begin{aligned}
+      % CX |00>
+    CX \ket{00} & = \begin{bmatrix}
+      1 & 0 & 0 & 0 \\
+      0 & 1 & 0 & 0 \\
+      0 & 0 & 0 & 1 \\
+      0 & 0 & 1 & 0
+      \end{bmatrix} \begin{bmatrix}
+      1 \\ 0 \\ 0 \\ 0
+      \end{bmatrix} & = \begin{bmatrix}
+      1 \\ 0 \\ 0 \\ 0
+    \end{bmatrix} = \ket{00} \\
+      % CX |01>
+    CX \ket{01} & = \begin{bmatrix}
+      1 & 0 & 0 & 0 \\
+      0 & 1 & 0 & 0 \\
+      0 & 0 & 0 & 1 \\
+      0 & 0 & 1 & 0
+      \end{bmatrix} \begin{bmatrix}
+      0 \\ 1 \\ 0 \\ 0
+      \end{bmatrix} & = \begin{bmatrix}
+      0 \\ 1 \\ 0 \\ 0
+    \end{bmatrix} = \ket{01} \\
+      % CX |10>
+    CX \ket{10} & = \begin{bmatrix}
+      1 & 0 & 0 & 0 \\
+      0 & 1 & 0 & 0 \\
+      0 & 0 & 0 & 1 \\
+      0 & 0 & 1 & 0
+      \end{bmatrix} \begin{bmatrix}
+      0 \\ 0 \\ 1 \\ 0
+      \end{bmatrix} & = \begin{bmatrix}
+      0 \\ 0 \\ 0 \\ 1
+    \end{bmatrix} = \ket{11} \\
+      % CX |11>
+    CX \ket{11} & = \begin{bmatrix}
+      1 & 0 & 0 & 0 \\
+      0 & 1 & 0 & 0 \\
+      0 & 0 & 0 & 1 \\
+      0 & 0 & 1 & 0
+      \end{bmatrix} \begin{bmatrix}
+      0 \\ 0 \\ 0 \\ 1
+      \end{bmatrix} & = \begin{bmatrix}
+      0 \\ 0 \\ 1 \\ 0
+    \end{bmatrix} = \ket{10}
+  \end{aligned}
+\end{equation*}
+
+\index{quantum gates!multi-qubit gates!controlled-Z gate}
+\subsection*{Controlled-Z Gate}
+
+\dfn{Controlled-Z Gate}{(CZ) applies a phase flip if both qubits are in state
+  $\ket{1}$:
+  \[
+    CZ = \begin{pmatrix}
+      1 & 0 & 0 & 0 \\
+      0 & 1 & 0 & 0 \\
+      0 & 0 & 1 & 0 \\
+      0 & 0 & 0 & -1
+    \end{pmatrix}
+  \]
+}
+
+
+Applying the CZ gate to a 2-qubit system, we obtain:
+\[
+  CZ \ket{00} = \ket{00}, \quad
+  CZ \ket{01} = \ket{01}, \quad
+  CZ \ket{10} = \ket{10}, \quad
+  CZ \ket{11} = -\ket{11}
+\]
+
+\noindent
+Unlike the CNOT gate, which \textit{flips} the target qubit, the CZ gate only
+introduces a \textbf{phase change to $\ket{11}$}.
+
+\vspace{0.3cm}
+
+\index{Circuit notation!multi-qubit gates}
+\subsection*{Circuit Representations}
+
+The standard circuit representations for these multi-qubit gates are:
+
+\begin{align*}
+  \begin{quantikz}
+    % CNOT
+    \lstick{CNOT:} & \ctrl{1} & \qw \\
+    & \targ{} & \qw \\[0.5cm]
+    % CZ
+    \lstick{CZ:} & \ctrl{1} & \qw \\
+    & \gate{Z} & \qw \\[0.5cm]
+  \end{quantikz}
+\end{align*}
+
+\subsection*{Tensor Product Ordering and Circuit Representations}
+
+When converting quantum circuits to mathematical expressions, it's important
+to understand that \textbf{tensor products are not commutative}: $A \otimes B
+\neq B \otimes A$ in general. However, we can modify the ordering of tensor
+products in our mathematical representation as long as we maintain the
+dependencies established by the circuit diagram. This leads to multiple valid
+mathematical representations of the same quantum circuit.
+
+\dfn{Bit Ordering Convention}{Due to the non-commutativity of tensor
+  products, we adopt the convention of representing qubits from most
+  significant to least significant in our mathematical expressions. For an
+  $n$-qubit system:
+  \[
+  \ket{q_{n-1}q_{n-2}...q_1q_0} = \ket{q_{n-1}} \otimes \ket{q_{n-2}} \otimes
+  ... \otimes \ket{q_1} \otimes \ket{q_0}
+  \]
+
+  where $q_0$ is the least significant qubit.
+}
+
+\noindent
+
+For example, consider a circuit with two Hadamard gates applied to different
+qubits:
+
+\begin{align*}
+  \begin{quantikz}
+    \lstick{$\ket{q_1}$} & \gate{H} & \qw \\
+    \lstick{$\ket{q_0}$} & \gate{H} & \qw
+  \end{quantikz}
+\end{align*}
+
+This circuit can be represented mathematically in equivalent ways:
+\[
+  (H \otimes H)\ket{q_1q_0} = (H\ket{q_1}) \otimes (H\ket{q_0}) = H\ket{q_1}
+  \otimes H\ket{q_0}
+\]
+
+\noindent
+When gates have dependencies (like controlled operations), the ordering must
+respect these dependencies. For the CNOT gate:
+
+\begin{align*}
+  \begin{quantikz}
+    \lstick{$\ket{q_1}$} & \ctrl{1} & \qw \\
+    \lstick{$\ket{q_0}$} & \gate{X} & \qw
+  \end{quantikz}
+\end{align*}
+
+\noindent
+The mathematical representation must preserve the control-target
+relationship, though intermediate calculations may use different but
+equivalent orderings:
+\[
+  CNOT_{1,0}\ket{q_1q_0} = CNOT(\ket{q_1} \otimes \ket{q_0})
+\]
+
+This flexibility in representation, while maintaining functional equivalence,
+is particularly useful when analyzing complex quantum circuits or optimizing
+quantum computations.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% End of Lecture 6
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

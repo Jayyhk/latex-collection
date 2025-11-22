@@ -1,0 +1,83 @@
+\documentclass{scrbook}
+\KOMAoptions{paper=a4, fontsize=12pt, chapterprefix=true, twoside=semi, DIV=classic, parskip=half, captions=besidetop}
+\linespread{1.25}
+
+\usepackage{enumitem}
+
+\usepackage{mymacros}
+\KOMAoptions{headsepline=on, DIV=last}
+
+\usepackage{graphicx}
+\usepackage[svgnames, dvipsnames]{xcolor}
+
+\usepackage{pgfornament}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage{lipsum}
+\usepackage{microtype}
+\usepackage{tabularx}
+\usepackage{adjustbox}
+\usepackage{subcaption}
+\usepackage{parcolumns}
+\usepackage{multicol}
+\usepackage{ifthen}
+\usepackage{pgfmath}
+\usepackage{pgffor}
+\usepackage{lineno}
+
+\usepackage{CJKutf8}
+\usepackage[style=ieee]{biblatex}
+\addbibresource{references.bib}
+\nocite{*}
+
+\definecolor{mint}{rgb}{0.24, 0.71, 0.54}
+
+\usepackage{pgfplots}
+
+\setfootnoterule{0.8\textwidth}
+
+\newboolean{firstanswerofthechapter}  
+\renewcommand*{\AnswerHeader}{\ifthenelse{\boolean{firstanswerofthechapter}}
+    {\textbf{Answers for Chapter \thechapter}\par\vspace{1ex}%
+     \theExercise)}
+    {\theExercise)}
+}
+
+\title{How to Reproduce this Book Exactly with \LaTeX}
+\subtitle{A Self-contained Tutorial on Writing Mathematical Notes}
+\author{C.~L.~Loi}
+\lowertitleback{"How to Reproduce this Book Exactly with \LaTeX"\\
+Copyright ©, C.~L.~Loi, 2025. All rights reserved.}
+
+\usetikzlibrary{calc, angles, quotes, intersections, decorations.pathmorphing, decorations.shapes, arrows.meta, decorations.markings, patterns, matrix, positioning, backgrounds, tikzmark, shapes.geometric}
+\usepackage{tikz-3dplot}
+\usepackage{circuitikz}
+
+\allowdisplaybreaks
+
+\begin{document}
+
+\frontmatter
+\include{front_matter}
+
+\mainmatter
+\include{ch0_install}
+\include{ch1_basic_structure}
+\include{ch2_text_format}
+\include{ch3_maths_writing}
+\include{ch4_list_figure}
+\include{ch5_commands_envs}
+\include{ch6_design_layout}
+\include{ch7_thm_ex}
+\include{ch8_tikz_plot}
+\include{ch9_more_tikz}
+\include{ch10_misc}
+
+\backmatter
+\include{back_matter}
+
+\end{document}

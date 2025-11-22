@@ -1,0 +1,421 @@
+\chapter{Laplace Transform}
+
+\section{Partial Fraction}
+
+\begin{example}
+    Decompose the following fractions as a sum of partial fractions
+    \begin{enumerate}
+        \item $\displaystyle \frac{2x^2 - x + 4}{x^3 + 4x}$
+        \item $\displaystyle \frac{3x^2 -4x + 5}{(x+1)^2(x-2)}$
+    \end{enumerate}
+\end{example}
+
+\section{Laplace Transform}
+    \begin{definition}[Laplace Transform]
+        Let $f(t)$ be a function defined for all $t \geq 0$. The Laplace Transform (LT) of 
+        $f(t)$ is defined by 
+
+        \begin{equation}
+            \mathcal{L}\{ f(t)\} = \int_{0}^{+\infty} e^{-st}\,f(t)\> dt = \lim_{N \to +\infty} \int_{0}^{N} e^{-st}\,f(t)\> dt
+        \end{equation}
+    \end{definition}
+
+\begin{example}
+    Evaluate $\mathcal{L}\{\sin \omega t \}$ and $\mathcal{L}\{\cos \omega t \}$, where 
+    $\omega = -\frac{1}{2}+i\frac{\sqrt{3}}{2} = e^{\frac{2}{3}\pi i}$ is a cubic root of unity.
+\end{example}
+\begin{solution}
+    From complex analysis, the De Moivre's theorem state that 
+
+    \[
+        \begin{cases}
+            e^{i\theta} = \cos \theta + i \sin \theta\\
+            e^{-i\theta} = \cos \theta - i \sin \theta\\
+        \end{cases}
+    \]
+
+    this implies that 
+    \[
+    \begin{cases}
+        e^{i\theta} + e^{-i\theta} = 2\cos \theta\\
+        e^{i\theta} - e^{-i\theta} = 2i \sin \theta\\
+    \end{cases}
+    \]
+
+    We let $\theta = \omega t$, 
+
+    \begin{align*}
+        \mathcal{L} \{ \cos \omega t \} &= \frac{1}{2} [ \mathcal{L} \{e^{i\omega t}\} + \mathcal{L} \{e^{-i\omega t}\} ]\\
+        &= \frac{1}{2} \biggl[\frac{1}{s - i\omega} + \frac{1}{s - (-i\omega)}\biggr]\\
+        &= \frac{1}{2} \biggl[\frac{1}{s - i\omega} + \frac{1}{s + i\omega}\biggr]\\
+        &= \frac{1}{2} \frac{(s + i\omega) + (s - i\omega)}{(s - i\omega)(s + i\omega)}\\
+        &= \frac{s}{s^2 - (i\omega^2)}\\
+        &= \frac{s}{s^2 + \omega^2}
+    \end{align*}
+
+\end{solution}[Behavior of $F(s)$]
+    
+\subsection{Inverse Laplace Transforms}  
+Consider $F(s)$ represents the Laplace transform of a function $f(t)$, that is, $F(s) = \mathcal{L}\{f(t) \}$.
+we then said that $f(t)$ is the inverse Laplace transform of $F(s)$ and we write
+
+\begin{equation}
+    f(t) = \mathcal{L}^{-1} \{F(s)\}
+\end{equation}
+
+that is, the original function $f(t)$ itself is the differentiation of the Laplace transform.
+
+\begin{theorem}[Differentiation of Transform]
+    Given the transform $F(s)$ to be
+    \begin{equation}
+        \mathcal{L}\{f(t)\} = F(s) = \int_{0}^{+\infty} e^{-st}\,f(t)\> dt 
+    \end{equation}
+    then the differentiation of transform is 
+    \begin{equation}
+        \frac{dF}{ds} = \int_{0}^{+\infty} (-t\,f(t))\, e^{-st} \>dt = \mathcal{L} \{-t\, f(t)\}
+    \end{equation}
+\end{theorem}
+
+\begin{corollary}
+    The inverse transform of $F(s)$ can be write as
+    \begin{equation}
+        f(t) = - \frac{1}{t} \mathcal{L}^{-1} \{F'(s)\}
+    \end{equation}
+\end{corollary}
+
+As with Laplace transforms, we've got the following fact to help us take the inverse transform.
+
+\begin{theorem}[Linearity of Inverse Laplace Transforms]
+    Given two Laplace transforms $F(s)$ and $G(s)$ then
+    \begin{equation}
+        \mathcal{L}^{-1} \{aF(s) + bG(s)\} = a\,\mathcal{L}^{-1} \{F(s)\} + b\, \mathcal{L}^{-1} \{G(s)\}
+    \end{equation}
+
+    for any constants $a$ and $b$.
+\end{theorem}
+
+\begin{example}
+    Solve the following IVP problem:
+    
+    \[
+        \begin{cases}
+            y'' + 2ty' - 4y = 1\\
+            y(0) = y'(0) = 0
+        \end{cases}
+    \]
+\end{example}
+\begin{solution}
+    Applying Laplace transform to the DE, we have
+    \begin{align*}
+        &[s^2Y - sy(0) - y'(0)] - 2\biggl(s\frac{dY}{ds} + Y \biggr) - 4Y = \frac{1}{s}\\
+        &s^2Y - 2s\frac{dY}{ds} - 6Y = \frac{1}{s}\\
+        &-2s \frac{dY}{ds} + (s^2 - 6)Y = \frac{1}{s}\\
+        &\frac{dY}{ds} + \frac{6-s^2}{2s} Y = - \frac{1}{2s^2} \label{eq:lpl41} \tag{{\color{red} $\bigtriangleup$}}
+    \end{align*}
+
+    upon transform, it now become an 1st-order DE. We further use the integrating factor technique 
+    to solve this problem.
+
+    \[
+    IF = e^{\int p(s)\> ds} = \exp \biggl\{\int \frac{6 - s^2}{2s}\> ds \biggr\} = s^3\, e^{-s^2/4}
+    \]
+
+    multiply IF with \eqref{eq:lpl41},
+
+    \begin{align*}
+        \frac{d}{ds} \biggl(Ys^2 e^{-s^2/4}\biggr) &= -\frac{s}{2}\, e^{-s^2/4}\\
+        Ys^2 e^{-s^2/4} &= \int -\frac{s}{2}\, e^{-s^2/4} \> ds = e^{-s^2/4} + C & \text{where } C \text{ is a constant}\\
+        Y &= \frac{1}{s^3} + \frac{Ce^{s^2/4}}{s^3} \label{eq:lpl41b} \tag{{\color{cyan} $\bullet$}}
+    \end{align*}
+
+    As $s \to \infty$, we calculate the limit of \eqref{eq:lpl41b} (use L'Hospital Rule to verify)
+
+    \[
+        \lim_{s \to +\infty} Y = \lim_{s \to +\infty} \biggl(\frac{1}{s^3} + \frac{Ce^{s^2/4}}{s^3}\biggr) = 0
+    \]
+
+    if and only if $C = 0$. Thus
+
+    \[
+        Y = \frac{1}{s^3} \quad \Rightarrow y = \frac{t^2}{2!} = \frac{1}{2}t^2
+    \]
+
+\end{solution}
+
+\section{Convolution}
+
+\begin{example}
+    Solve the equation 
+    \[
+        y = t + \int_{0}^{t} y(\tau) \sin(t - \tau) \> d\tau
+    \]
+\end{example}
+\begin{solution}
+    The original equation can be rewrite as 
+    \[
+        y = t + y \star \sin t
+    \]
+
+    Applying Laplace Transform on the original equation, we have 
+    \[
+        Y = \frac{1}{s^2} + Y \cdot \frac{1}{s^2 + 1}
+    \]
+
+    Solving for $Y$, 
+
+    \begin{align*}
+        Y \biggl(1 - \frac{1}{s^2 + 1}\biggr) = \frac{1}{s^2} &\Rightarrow 
+        Y \biggl(\frac{s^2}{s^2 + 1}\biggr) = \frac{1}{s^2}\\
+        &\Rightarrow Y = \frac{s^2 + 1}{s^4}\\
+        &\Rightarrow Y = \frac{1}{s^2} + \frac{1}{s^4}
+    \end{align*}
+
+    Applying inverse Laplace transform on Y, we obtain
+    \begin{align*}
+        \mathcal{L}^{-1}\{Y\} = \mathcal{L}^{-1} \biggl\{\frac{1}{s^2} + \frac{1}{s^4}\biggr\} &\Rightarrow 
+        y = \mathcal{L}^{-1}\biggl\{\frac{1}{s^2}\biggr\} + \mathcal{L}^{-1}\biggl\{\frac{1}{s^4}\biggr\}\\
+        &\Rightarrow y = t + \frac{t^3}{3!} = t + \frac{1}{6}t^3
+    \end{align*}
+\end{solution}
+
+\begin{theorem}[First Shifting Theorem]
+    If $\mathcal{L}\{f(t) \} = F(s)$, then $\mathcal{L}\{e^{at} \, f(x)\} = F(s-a)$.
+\end{theorem}
+\begin{proof}
+    \[
+        \mathcal{L}\{e^{at} \, f(x)\} = \int_{0}^{+\infty} e^{-st}\, e^{at}\, f(t)\> dt = \int_{0}^{+\infty} e^{-(s-a)t}\, f(t)\> dt = F(s-a)
+    \]
+
+    which has been shown.
+\end{proof}
+
+The Laplace Second Shifting Theorem, on the other hand, states that the
+ Laplace transform of the delayed function
+ equals the product of the Laplace transform of the original function and the shifted function.
+
+\section{More Properties of Laplace Transform}
+
+\subsection{Step function}
+
+\begin{definition}[Unit Step Function]
+    The step function $H(t - a)$ is defined to be
+    \begin{equation}
+        H(t - a) = \begin{cases}
+            0, & 0 \leq t < a\\
+            1, & t \geq a
+        \end{cases}
+    \end{equation}
+
+    the unit step function is also known as the Heaviside function.
+\end{definition}
+
+\begin{theorem}[Second Shifting Theorem]
+    Suppose     
+\end{theorem}
+
+\subsection{Dirac Delta function}
+
+A unit impulse function is a function that is "on" for a short period and 0 ("off") otherwise
+
+\input{plots/lapl-dirac.tex}
+
+mathematically,
+
+\begin{equation}
+    \delta_a(t - t_0) = \begin{cases}
+        0, & 0 \leq t_0 < t_0 - a\\
+        \frac{1}{2a}, & t_0 - a \leq t_0 < t_0 + a\\
+        0, & t_0 \geq t_0 + a
+    \end{cases}
+\end{equation}
+
+The unit impulse function has the property 
+
+\begin{equation}
+    \int_{0}^{+\infty} \delta_a(t - t_0) \> dt = 1
+\end{equation}
+
+the limit of this function as $a \to 0$ is the Dirac Delta function. Note that 
+$\delta(t - a)$ is not a proper function.
+
+\begin{definition}[Dirac Delta function]
+    The Dirac Delta function is defined as 
+    \begin{equation}
+        \delta(t - a) = \lim_{k \to 0^+} f_k(t) = \begin{cases}
+           +\infty, & \text{if } t = a\\
+           0, & \text{if } t \neq a
+        \end{cases}
+    \end{equation}
+
+    where 
+    \begin{equation}
+        f_k(t) = \begin{cases}
+            \displaystyle \frac{1}{k}, & \text{if } a \leq t \leq a+k\\[0.75em]
+            0, & \text{otherwise}
+        \end{cases}
+    \end{equation}
+\end{definition}
+
+\begin{example}
+    Solve the IVP problem:
+    \[
+        y'' + 2y' + 5y = 25t - \delta(t - \pi), \quad y(0) = -2, \quad y'(0) = 5
+    \]
+    where $\delta$ is known as Dirac Delta function.
+\end{example}
+\begin{solution}
+    Applying Laplace transform on the original DE, we have
+
+    \begin{align*}
+        [s^2Y - sy(0) - y'(0)] + 2[sY - y(0)] + 5Y &= \frac{25}{s^2} - e^{-\pi s}\\
+        s^2 + 2s - 5 + 2[sY + 2] + 5Y = \frac{25}{s^2} - e^{-\pi s}
+    \end{align*} 
+
+    Solving for $Y$, 
+    \begin{align*}
+        &(s^2 + 2s + 5)Y = \frac{25}{s^2} - e^{-\pi s} - 2s + 1\\
+        &Y = \frac{25}{s^2(s^2+2s+5)} - \frac{e^{-\pi s}}{s^2 + 2s + 5} + \frac{1-2s}{s^2 + 2s +5}\\
+        &Y = \frac{5}{s^2} - \frac{2}{s} - \frac{e^{-\pi s}}{s^2 + 2s + 5}\\
+        &Y = \frac{5}{s^2} - \frac{2}{s} - e^{-\pi s}\, F(s) \label{eq:lpl42} \tag{{\color{red} $\diamond$}}
+    \end{align*}
+
+    Notice that $F(s)$ can be simplify for ease of inverse transformation,
+
+    \begin{align*}
+        F(s) = \frac{1}{s^2 + 2s + 5} &= \frac{1}{(s^2 + 2s + 2) + 2}\\
+        &= \frac{1}{(s + 1)^2 + 1}\\
+        &= \frac{1}{2} \biggl[\frac{2}{(s + 1)^2 + 2^2}\biggr]\\
+    \end{align*}
+
+    inverting $F(s)$ will obtain $f(t) = \displaystyle \frac{1}{2} e^{-t} \sin(2t)$. 
+
+    Furthermore, we again invert \eqref{eq:lpl42},
+    \begin{align*}
+        y &= 5t - 2 - f(t - \pi)\, H(t - \pi)\\
+        &= 5t - 2 - \frac{1}{2}e^{-(t-\pi)} \sin 2(t-\pi)\, H(t - \pi)\\
+        &= 5t - 2 - \frac{1}{2}e^{-(t-\pi)} [\sin 2t \cos \pi - \cos 2t \sin 2\pi]\, H(t - \pi)\\
+        \Rightarrow y &= 5t - 2 - \frac{1}{2}e^{-(t-\pi)} \sin(2t) \, H(t - \pi)
+    \end{align*}
+
+    which this is the solution for the DE.
+\end{solution}
+
+\section{Periodic Function}
+
+\begin{definition}[Periodic function]
+    The function $f$ is said to be periodic with period $p > 0$, if $f(t + p) = f(t)$ 
+    for all $t \in \text{Domain } f$.
+\end{definition}
+
+For example, $\sin(t + 2\pi) = \sin(t)$, so the function $\sin(t)$ is a periodic function 
+with period of $2\pi$.
+
+\begin{theorem}[Laplace Transform of Periodic Function]
+    Suppose $\mathcal{L}\{f(t)\}$ exists and there exists $T > 0$ s.t. $f(t + T) = f(t)$ for all 
+    $t \geq 0$, then 
+
+    \begin{equation}
+        \mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-st}} \int_{0}^{T} e^{-st}\, f(t)\> dt
+    \end{equation}
+\end{theorem}
+\begin{proof}
+    Let $\tau = t - T$, $d\tau = dt$, and $t = T$ as $T \to \infty$. 
+
+    The Laplace transform of $f(t)$ is 
+
+    \begin{equation*}
+        \int^\infty_T e^{-st}f(t)\> dt = \int^\infty_0 e^{-s(\tau + T)} f(\tau + T) \> d\tau = e^{-sT} \int^\infty_0 e^{-s\tau} f(\tau) \> d\tau
+    \end{equation*}
+
+    We can now rewrite $\mathcal{L}\{ f(t) \}$ into this form
+
+    \begin{equation*}
+        \mathcal{L}\{f(t)\} = \frac{1}{1 - e^{-st}} \mathcal{L} \{ f_1(t) \}
+    \end{equation*}
+
+    With this we can find $\mathcal{L}\{ f(t) \}$ without integration because 
+    
+    \[
+        f_1(t) = f(t)[H(t - 0) - H(t - T)]
+    \]
+\end{proof}
+
+\section{Tutorials}
+
+\begin{mdframed}
+    \vspace{-0.25cm}
+    \hspace{-0.25cm}
+    \begin{Exercise}
+        Express the fraction $\displaystyle \frac{x^2 + 7x - 3}{(x-2)(x^2 + 1)}$ as the sum of partial fractions.
+    \end{Exercise}
+
+    \begin{Exercise}
+        \begin{enumerate}
+            \item Show that $\sin 3x = 3 \sin x - 4\sin^3x$.
+            \item Hence, using the identity to evaluate $\mathcal{L}\{\sin^3 x\}$.
+        \end{enumerate}
+    \end{Exercise}
+
+    \begin{Exercise}
+        Find $\displaystyle \mathcal{L} \biggl\{\frac{}{}\biggr\}$
+    \end{Exercise}
+
+    \begin{Exercise}
+        Solve the initial-value problem
+        \[
+            x'' + 16x = \cos(4t),\quad x(0) = 0,\quad x'(0) =1
+        \]
+    \end{Exercise}
+
+    \begin{Exercise}
+        Solve the equation
+        \[
+            y' + 4y + 5\int_{0}^{t} y \> dt = e^{-t}, \quad y(0) = 0
+        \]
+    \end{Exercise}
+
+    \begin{Exercise}
+        Solve the integral equation
+        \[
+            y(t) = e^{-t} - 2\int_{0}^{t} y(u) \cos(t-u) \> du
+        \]
+    \end{Exercise}
+
+    \begin{Exercise}
+        Find the Laplace transform of the periodic function shown in figure below.
+
+        \input{plots/lapl-01.tex}
+    \end{Exercise}
+
+    \begin{Exercise}
+        In the two-mesh network shown below, the switch is closed at $t = 0$ and the voltage source is given by
+    $V(t) = 150 \sin(1000t)$. Find the mesh currents $i_1$ and $i_2$.
+
+    \begin{center}
+        \begin{circuitikz}[european voltages] \draw
+            (0,0) to[sinusoidal voltage source=$V$] (0,4)
+              to [short] ++ (1,0)  
+              to[cute closing switch] ++ (2,0)
+              to[R=10<\ohm>] ++ (2,0)       coordinate (a)
+              to[short] ++ (2,0)            coordinate (g)
+              to[R=5<\ohm>, *-] ++ (0,-2)   
+              to[short] ++ (0,-2)           coordinate (d)
+              (a) to[R=5<\ohm>, *-] ++ (0,-2)   coordinate (b)
+              (b) to[cute inductor=$0.01H$] ++ (0,-2)    coordinate (c)
+              (c) to[short, *-, i=$I_0$] (0,0)  
+              (d) to[short, *-] (c);
+              \node (a1) [below left=.25cm and .25cm of a] {};
+              \node (c2) [above left=.25cm and 3.25cm of c] {};
+              \node (c3) [left=.25cm of c2] {};
+    
+              \node (g1) [below left=.25cm and .25cm of g] {};
+              \node (d2) [above left=.10cm and 2.75cm of d] {};
+              \path[draw=red, thick,-Triangle] (a1) |- node[red, left, yshift=2cm] {$i_1$} (c2);
+              \path[draw=red, thick,-Triangle] (g1) |- node[red, left, yshift=2cm] {$i_2$} (d2);
+
+              \node [above right=1.25cm and .15cm of c] {$+$};
+              \node [above right=0.25cm and .15cm of c] {$-$};
+        \end{circuitikz}
+    \end{center}
+    \end{Exercise}
+\end{mdframed}
